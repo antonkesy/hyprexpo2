@@ -8,6 +8,6 @@ description = "A fork of the plugin hyprexpo with added workspace selection"
 authors = ["Vaxry", "antonkesy"]
 output = "hyprexpo2.so"
 build = [
-    "make -C hyprexpo2 all",
+    "make all",
 ]
 since_hyprland = 4364
