@@ -35,7 +35,7 @@ APICALL EXPORT std::string PLUGIN_API_VERSION() {
 
 static bool       renderingOverview = false;
 
-const std::string KEYWORD_EXPO_GESTURE = "hyprexpo-gesture";
+const std::string KEYWORD_EXPO_GESTURE = "hyprexpo2-gesture";
 
 //
 static void hkRenderWorkspace(void* thisptr, PHLMONITOR pMonitor, PHLWORKSPACE pWorkspace, timespec* now, const CBox& geometry) {
@@ -106,7 +106,7 @@ static SDispatchResult onExpoDispatcher(std::string arg) {
 }
 
 static void failNotif(const std::string& reason) {
-    HyprlandAPI::addNotification(PHANDLE, "[hyprexpo] Failure in initialization: " + reason, CHyprColor{1.0, 0.2, 0.2, 1.0}, 5000);
+    HyprlandAPI::addNotification(PHANDLE, "[hyprexpo2] Failure in initialization: " + reason, CHyprColor{1.0, 0.2, 0.2, 1.0}, 5000);
 }
 
 static Hyprlang::CParseResult expoGestureKeyword(const char* LHS, const char* RHS) {
@@ -147,7 +147,7 @@ static Hyprlang::CParseResult expoGestureKeyword(const char* LHS, const char* RH
     for (const auto arg : std::string(LHS).substr(KEYWORD_EXPO_GESTURE.size())) {
         switch (arg) {
             case 'p': disableInhibit = true; break;
-            default: result.setError("hyprexpo-gesture: invalid flag"); return result;
+            default: result.setError("hyprexpo2-gesture: invalid flag"); return result;
         }
     }
 
@@ -240,21 +240,21 @@ APICALL EXPORT PLUGIN_DESCRIPTION_INFO PLUGIN_INIT(HANDLE handle) {
         g_pOverview->onPreRender();
     });
 
-    HyprlandAPI::addDispatcherV2(PHANDLE, "hyprexpo:expo", ::onExpoDispatcher);
+    HyprlandAPI::addDispatcherV2(PHANDLE, "hyprexpo2:expo", ::onExpoDispatcher);
 
     HyprlandAPI::addConfigKeyword(PHANDLE, KEYWORD_EXPO_GESTURE, ::expoGestureKeyword, {true});
 
-    HyprlandAPI::addConfigValue(PHANDLE, "plugin:hyprexpo:columns", Hyprlang::INT{3});
-    HyprlandAPI::addConfigValue(PHANDLE, "plugin:hyprexpo:gap_size", Hyprlang::INT{5});
-    HyprlandAPI::addConfigValue(PHANDLE, "plugin:hyprexpo:bg_col", Hyprlang::INT{0xFF111111});
-    HyprlandAPI::addConfigValue(PHANDLE, "plugin:hyprexpo:workspace_method", Hyprlang::STRING{"center current"});
-    HyprlandAPI::addConfigValue(PHANDLE, "plugin:hyprexpo:skip_empty", Hyprlang::INT{0});
+    HyprlandAPI::addConfigValue(PHANDLE, "plugin:hyprexpo2:columns", Hyprlang::INT{3});
+    HyprlandAPI::addConfigValue(PHANDLE, "plugin:hyprexpo2:gap_size", Hyprlang::INT{5});
+    HyprlandAPI::addConfigValue(PHANDLE, "plugin:hyprexpo2:bg_col", Hyprlang::INT{0xFF111111});
+    HyprlandAPI::addConfigValue(PHANDLE, "plugin:hyprexpo2:workspace_method", Hyprlang::STRING{"center current"});
+    HyprlandAPI::addConfigValue(PHANDLE, "plugin:hyprexpo2:skip_empty", Hyprlang::INT{0});
 
-    HyprlandAPI::addConfigValue(PHANDLE, "plugin:hyprexpo:gesture_distance", Hyprlang::INT{200});
+    HyprlandAPI::addConfigValue(PHANDLE, "plugin:hyprexpo2:gesture_distance", Hyprlang::INT{200});
 
     HyprlandAPI::reloadConfig();
 
-    return {"hyprexpo", "A plugin for an overview", "Vaxry", "1.0"};
+    return {"hyprexpon2", "A plugin for an overview", "Vaxry, antonkesy", "1.0"};
 }
 
 APICALL EXPORT void PLUGIN_EXIT() {

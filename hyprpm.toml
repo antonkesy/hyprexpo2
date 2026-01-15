@@ -1,11 +1,9 @@
 [repository]
 name = "hyprexpo2"
-authors = ["Vaxry"]
-commit_pins = [
-    # ["ab1d80f3d6aebd57a0971b53a1993b1c1dfe0b09", "64b7c2dff7e5e1fcb4cb7e5db078947744070e1a"]  # 0.53.1
-]
+authors = ["Vaxry", "antonkesy"]
+commit_pins = []
 
-[hyprexpo]
+[hyprexpo2]
 description = "A fork of the plugin hyprexpo with added workspace selection"
 authors = ["Vaxry", "antonkesy"]
 output = "hyprexpo2.so"

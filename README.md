@@ -1,7 +1,7 @@
-# HyprExpo
-HyprExpo is an overview plugin like Gnome, KDE or wf.
+# HyprExpo2
+HyprExpo2 is an fork of HyprExpo which is an overview plugin like Gnome, KDE or wf.
 
-![HyprExpo](https://github.com/user-attachments/assets/e89df9d2-9800-4268-9929-239ad9bc3a54)
+![HyprExpo2](https://github.com/user-attachments/assets/e89df9d2-9800-4268-9929-239ad9bc3a54)
 
 ## Install with `hyprpm`
 
@@ -23,7 +23,7 @@ A great start to configure this plugin would be adding this code to the `plugin`
 ```ini
 # .config/hypr/hyprland.conf
 plugin {
-    hyprexpo {
+    hyprexpo2 {
         columns = 3
         gap_size = 5
         bg_col = rgb(111111)
@@ -49,18 +49,18 @@ gesture_distance | number | how far is the max for the gesture | `300`
 
 | name | description | arguments |
 | -- | -- | -- |
-| hyprexpo-gesture | same as gesture, but for hyprexpo gestures. Supports: `expo`. | Same as gesture |
+| hyprexpo2-gesture | same as gesture, but for hyprexpo2 gestures. Supports: `expo`. | Same as gesture |
 
 ### Binding
 ```bash
 # hyprland.conf
-bind = MODIFIER, KEY, hyprexpo:expo, OPTION
+bind = MODIFIER, KEY, hyprexpo2:expo, OPTION
 ```
 
 Example:
 ```bash
-# This will toggle HyprExpo when SUPER+g is pressed
-bind = SUPER, g, hyprexpo:expo, toggle
+# This will toggle HyprExpo2 when SUPER+g is pressed
+bind = SUPER, g, hyprexpo2:expo, toggle
 ```
 
 Here are a list of options you can use:
