@@ -1,4 +1,4 @@
-project('hyprtrails', 'cpp',
+project('hyprexpo2', 'cpp',
   version: '0.1',
   default_options: ['buildtype=release'],
 )

@@ -1,112 +1,75 @@
-# hyprland-plugins
-
-This repo houses official plugins for Hyprland.
-
-# Plugin list
- - borders-plus-plus -> adds one or two additional borders to windows
- - csgo-vulkan-fix -> fixes custom resolutions on CS:GO with `-vulkan`
- - hyprbars -> adds title bars to windows
- - hyprexpo -> adds an expo-like workspace overview
- - hyprfocus -> flashfocus for hyprland
- - hyprscrolling -> adds a scrolling layout to hyprland
- - hyprtrails -> adds smooth trails behind moving windows
- - hyprwinwrap -> clone of xwinwrap, allows you to put any app as a wallpaper
- - xtra-dispatchers -> adds some new dispatchers
-
-# Install
-> [!IMPORTANT]
-> hyprland-plugins only officially supports installation via `hyprpm`.
-> `hyprpm` automatically detects your hyprland version & installs only
-> the corresponding "pinned" release of hyprland-plugins.
-> If you want the latest commits to hyprland-plugins, you need to use
-> `hyprland-git`.
+# HyprExpo
+HyprExpo is an overview plugin like Gnome, KDE or wf.
+  
+![HyprExpo](https://github.com/user-attachments/assets/e89df9d2-9800-4268-9929-239ad9bc3a54)
 
 ## Install with `hyprpm`
 
-To install these plugins, from the command line run:
+To install this plugin, from the command line run:
 ```bash
 hyprpm update
 ```
 Then add this repository:
 ```bash
-hyprpm add https://github.com/hyprwm/hyprland-plugins
+hyprpm add https://github.com/antonkesy/hyprexpo2
 ```
-then enable the desired plugin with
+then enable the plugin with
 ```bash
-hyprpm enable <plugin-name>
+hyprpm enable hyprexpo2
 ```
+  
+## Config
+A great start to configure this plugin would be adding this code to the `plugin` section of your hyprland configuration file:  
+```ini
+# .config/hypr/hyprland.conf
+plugin {
+    hyprexpo {
+        columns = 3
+        gap_size = 5
+        bg_col = rgb(111111)
+        workspace_method = center current # [center/first] [workspace] e.g. first 1 or center m+1
 
-See the respective README's in the subdirectories for configuration options.
-
-See [the plugins wiki](https://wiki.hyprland.org/Plugins/Using-Plugins/#installing--using-plugins) and `hyprpm -h` for more details.
-
-## Install on Nix
-
-To use these plugins, it's recommended that you are already using the
-[Hyprland flake](https://github.com/hyprwm/Hyprland).
-First, add this flake to your inputs:
-
-```nix
-inputs = {
-  # ...
-  hyprland.url = "github:hyprwm/Hyprland";
-  hyprland-plugins = {
-    url = "github:hyprwm/hyprland-plugins";
-    inputs.hyprland.follows = "hyprland";
-  };
-
-  # ...
-};
-```
-
-The `inputs.hyprland.follows` guarantees the plugins will always be built using
-your locked Hyprland version, thus you will never get version mismatches that
-lead to errors.
-
-After that's done, you can use the plugins with the Home Manager module like
-this:
-
-```nix
-{inputs, pkgs, ...}: {
-  wayland.windowManager.hyprland = {
-    enable = true;
-    # ...
-    plugins = [
-      inputs.hyprland-plugins.packages.${pkgs.system}.hyprbars
-      # ...
-    ];
-  };
+        gesture_distance = 300 # how far is the "max" for the gesture
+    }
 }
 ```
 
-If you don't use Home Manager:
+### Properties
 
-```nix
-{ lib, pkgs, inputs, ... }:
-with lib; let
-  hyprPluginPkgs = inputs.hyprland-plugins.packages.${pkgs.system};
-  hypr-plugin-dir = pkgs.symlinkJoin {
-    name = "hyrpland-plugins";
-    paths = with hyprPluginPkgs; [
-      hyprexpo
-      #...plugins
-    ];
-  };
-in
-{
-  environment.sessionVariables = { HYPR_PLUGIN_DIR = hypr-plugin-dir; };
-}
+| property | type | description | default |
+| --- | --- | --- | --- |
+columns | number | how many desktops are displayed on one line | `3`
+gap_size | number | gap between desktops | `5`
+bg_col | color | color in gaps (between desktops) | `rgb(000000)`
+workspace_method | [center/first] [workspace] | position of the desktops | `center current`
+skip_empty | boolean | whether the grid displays workspaces sequentially by id using selector "r" (`false`) or skips empty workspaces using selector "m" (`true`) | `false`
+gesture_distance | number | how far is the max for the gesture | `300`
+
+### Keywords
+
+| name | description | arguments |
+| -- | -- | -- | 
+| hyprexpo-gesture | same as gesture, but for hyprexpo gestures. Supports: `expo`. | Same as gesture |
+
+### Binding
+```bash
+# hyprland.conf
+bind = MODIFIER, KEY, hyprexpo:expo, OPTION
 ```
 
-And in `hyprland.conf`
-
-```hyprlang
-# load all the plugins you installed
-exec-once = hyprctl plugin load "$HYPR_PLUGIN_DIR/lib/libhyprexpo.so"
+Example:  
+```bash
+# This will toggle HyprExpo when SUPER+g is pressed
+bind = SUPER, g, hyprexpo:expo, toggle
 ```
 
-# Contributing
+Here are a list of options you can use:  
+| option | description |
+| --- | --- |
+toggle | displays if hidden, hide if displayed
+select | selects the hovered desktop
+off | hides the overview
+disable | same as `off`
+on | displays the overview
+enable | same as `on`
 
-Feel free to open issues and MRs with fixes.
-
-If you want your plugin added here, contact vaxry beforehand.
