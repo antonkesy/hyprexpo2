@@ -174,9 +174,9 @@ static Hyprlang::CParseResult expoGestureKeyword(const char* LHS, const char* RH
     std::expected<void, std::string> resultFromGesture;
 
     if (data[startDataIdx] == "expo")
-        resultFromGesture = g_pTrackpadGestures->addGesture(makeUnique<CExpoGesture>(), fingerCount, direction, modMask, deltaScale);
+        resultFromGesture = g_pTrackpadGestures->addGesture(makeUnique<CExpoGesture>(), fingerCount, direction, modMask, deltaScale, disableInhibit);
     else if (data[startDataIdx] == "unset")
-        resultFromGesture = g_pTrackpadGestures->removeGesture(fingerCount, direction, modMask, deltaScale);
+        resultFromGesture = g_pTrackpadGestures->removeGesture(fingerCount, direction, modMask, deltaScale, disableInhibit);
     else {
         result.setError(std::format("Invalid gesture: {}", data[startDataIdx]).c_str());
         return result;
