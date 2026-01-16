@@ -5,7 +5,7 @@ class COverview;
 
 class COverviewPassElement : public IPassElement {
   public:
-    COverviewPassElement();
+    COverviewPassElement()          = default;
     virtual ~COverviewPassElement() = default;
 
     virtual void                draw(const CRegion& damage);

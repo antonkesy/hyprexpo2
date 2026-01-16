@@ -2,10 +2,6 @@
 #include <hyprland/src/render/OpenGL.hpp>
 #include "overview.hpp"
 
-COverviewPassElement::COverviewPassElement() {
-    ;
-}
-
 void COverviewPassElement::draw(const CRegion& damage) {
     g_pOverview->fullRender();
 }
